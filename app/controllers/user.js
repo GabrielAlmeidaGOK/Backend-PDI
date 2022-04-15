@@ -2,13 +2,11 @@ const User = require('../models/Users.js')
 
 exports.register = async (req, res) => {
   const { name } = req.body
-
   const filter = await User.findOne({ name })
 
   if (!filter) {
     const user = new User({ ...req.body })
     await user.save()
-
     return res.send(user)
   }
   else {
@@ -17,9 +15,8 @@ exports.register = async (req, res) => {
 }
 
 exports.getAll = async (req, res) => {
- 
   const fill = await User.find()
-  if(res.status(200).send){
+  if (res.status(200).send) {
     return res.send(fill)
   }
   else {
@@ -29,8 +26,8 @@ exports.getAll = async (req, res) => {
 
 exports.delete = async (req, res) => {
   try {
-    const {_id} = req.params
-    await User.findOneAndDelete({_id: _id});
+    const { _id } = req.params
+    await User.findOneAndDelete({ _id: _id });
     res.send({
       status: 200,
       message: "deletado com sucesso"
